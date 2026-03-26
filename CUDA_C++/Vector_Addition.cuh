@@ -1,10 +1,10 @@
 #include "cuda_runtime.h"
-
+#include "device_launch_parameters.h"
 #include <iostream>
 #include <stdio.h>
 
 
-__global__ void vextorAdd(const float* A, const float* B, float* C, int N)
+__global__ void vectorAdd(const float* A, const float* B, float* C, int N)
 {
     int i = blockDim.x * blockIdx.x + threadIdx.x;
 

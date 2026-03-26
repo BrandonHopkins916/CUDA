@@ -1,20 +1,13 @@
 ﻿
-//#include "Vector_Addition"
+// Functions Headers
+#include "Vector_Addition.cuh"
+// CUDA Libary
 #include "cuda_runtime.h"
 #include "device_launch_parameters.h"
+// C++ Headers
 #include <chrono>
 #include <iostream>
 #include <stdio.h>
-
-__global__ void vectorAdd(const float* A, const float* B, float* C, int N)
-{
-    int i = blockDim.x * blockIdx.x + threadIdx.x;
-
-    if (i < N)
-    {
-        C[i] = A[i] + B[i];
-    }
-}
 
 int main()
 {
@@ -26,7 +19,7 @@ int main()
     float* h_B = (float*)malloc(size);
     float* h_C = (float*)malloc(size);
 
-    // Initialize input vecotrs
+    // Initialize input vectors
     for (int i = 0; i < N; i++)
     {
         h_A[i] = static_cast<float>(i);
@@ -34,7 +27,7 @@ int main()
     }
 
     // Allocate device memory
-    float* d_A, * d_B, * d_C;
+    float* d_A, *d_B, *d_C = nullptr;
     cudaMalloc((void**)&d_A, size);
     cudaMalloc((void**)&d_B, size);
     cudaMalloc((void**)&d_C, size);
